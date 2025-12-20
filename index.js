@@ -26,6 +26,9 @@ const Product = mongoose.model("Product", productSchema);
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "add.html"));
 });
+app.get("/update.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "update.html"));
+});
 
 // GET all products
 app.get("/products", (req, res) => {
