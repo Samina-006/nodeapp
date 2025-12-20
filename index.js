@@ -29,6 +29,10 @@ app.get("/", (req, res) => {
 app.get("/update.html", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "update.html"));
 });
+app.get("/delete.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "delete.html"));
+});
+
 
 // GET all products
 app.get("/products", (req, res) => {
