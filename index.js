@@ -58,18 +58,26 @@ app.post("/products", (req, res) => {
 });
 
 // UPDATE product
-app.put("/products/:id", (req, res) => {
+app.post('/products/update', (req, res) => {
+  
+  const frm_product = req.body;
+
   Product.findOneAndUpdate(
-    { id: req.params.id },
-    req.body,
+    { id: frm_product.id },
+    frm_product,
     { new: true }
   )
-    .then(product => {
-      if (!product) return res.json({ message: "Product not found" });
-      res.json(product);
+    .then((doc) => {
+      console.log('Product updated');
+      res.json(doc);
     })
-    .catch(err => res.status(500).json({ error: err.message }));
+    .catch((err) => {
+      console.log(err);
+      res.send('Error updating product');
+    });
+
 });
+
 
 // DELETE product
 app.delete("/products/:id", (req, res) => {
