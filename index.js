@@ -83,14 +83,27 @@ app.post('/products/update', (req, res) => {
 
 
 // DELETE product
-app.delete("/products/:id", (req, res) => {
-  Product.findOneAndDelete({ id: req.params.id })
-    .then(product => {
-      if (!product) return res.json({ message: "Product not found" });
-      res.json({ message: "Product deleted successfully" });
+app.post('/products/delete', (req, res) => {
+
+  const frm_product = req.body;
+
+  Product.findOneAndDelete({ id: frm_product.id })
+    .then((doc) => {
+      if (!doc) {
+        console.log("Product not found");
+        return res.json({ message: "Product not found" });
+      }
+
+      console.log("Product deleted");
+      res.json(doc);
     })
-    .catch(err => res.status(500).json({ error: err.message }));
+    .catch((err) => {
+      console.log(err);
+      res.send("Error deleting product");
+    });
+
 });
+
 
 
 const PORT = process.env.PORT || 3000;
